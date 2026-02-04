@@ -50,16 +50,16 @@ public class RedisNotificationConsumer implements MessageConsumer {
                     ReadOffset.from("0-0"),  // 스트림 처음부터 읽기
                     NotificationRedisConstants.CONSUMER_GROUP
             );
-            log.info("Redis Stream 소비자 그룹 생성: stream={}, group={}",
-                    notificationStreamKey, NotificationRedisConstants.CONSUMER_GROUP);
+//            log.info("Redis Stream 소비자 그룹 생성: stream={}, group={}",
+//                    notificationStreamKey, NotificationRedisConstants.CONSUMER_GROUP);
         } catch (Exception e) {
-            log.info("소비자 그룹 생성 시도 결과: {}", e.getMessage());
+//            log.info("소비자 그룹 생성 시도 결과: {}", e.getMessage());
 
             // Consumer Group이 이미 존재하는 경우는 정상
             if (e.getMessage() != null && e.getMessage().contains("BUSYGROUP")) {
-                log.info("소비자 그룹이 이미 존재함 - 정상 진행");
+//                log.info("소비자 그룹이 이미 존재함 - 정상 진행");
             } else {
-                log.error("소비자 그룹 생성 실패", e);
+//                log.error("소비자 그룹 생성 실패", e);
             }
         }
     }
@@ -69,7 +69,7 @@ public class RedisNotificationConsumer implements MessageConsumer {
     public void start() {
         if (running.compareAndSet(false, true)) {
             consumerTask = CompletableFuture.runAsync(this::pollAndProcess, sseExecutor);
-            log.info("Redis 메시지 소비자 시작: group={}, consumer={}", NotificationRedisConstants.CONSUMER_GROUP, NotificationRedisConstants.SSE_CONSUMER);
+//            log.info("Redis 메시지 소비자 시작: group={}, consumer={}", NotificationRedisConstants.CONSUMER_GROUP, NotificationRedisConstants.SSE_CONSUMER);
         }
     }
 
@@ -79,7 +79,7 @@ public class RedisNotificationConsumer implements MessageConsumer {
             if (consumerTask != null) {
                 consumerTask.cancel(true);
             }
-            log.info("Redis 메시지 소비자 중지: group={}, consumer={}", NotificationRedisConstants.CONSUMER_GROUP, NotificationRedisConstants.SSE_CONSUMER);
+//            log.info("Redis 메시지 소비자 중지: group={}, consumer={}", NotificationRedisConstants.CONSUMER_GROUP, NotificationRedisConstants.SSE_CONSUMER);
         }
     }
 
@@ -133,8 +133,8 @@ public class RedisNotificationConsumer implements MessageConsumer {
             }
         }
 
-        log.info("Redis Stream 소비자 폴링 루프 종료: group={}, consumer={}",
-                NotificationRedisConstants.CONSUMER_GROUP, NotificationRedisConstants.SSE_CONSUMER);
+//        log.info("Redis Stream 소비자 폴링 루프 종료: group={}, consumer={}",
+//                NotificationRedisConstants.CONSUMER_GROUP, NotificationRedisConstants.SSE_CONSUMER);
     }
 
     private void handleRecord(MapRecord<String, String, Object> record) {
@@ -144,16 +144,16 @@ public class RedisNotificationConsumer implements MessageConsumer {
             if (success) {
                 streamOperations.acknowledge(notificationStreamKey, NotificationRedisConstants.CONSUMER_GROUP, record.getId());
                 processedMessages.incrementAndGet();
-                log.debug("메시지 처리 성공 및 ACK: recordId={}", record.getId());
+//                log.debug("메시지 처리 성공 및 ACK: recordId={}", record.getId());
             } else {
                 failedMessages.incrementAndGet();
-                log.warn("메시지 처리 실패 - Pending List에 유지: recordId={}", record.getId());
+//                log.warn("메시지 처리 실패 - Pending List에 유지: recordId={}", record.getId());
             }
 
         } catch (Exception e) {
             failedMessages.incrementAndGet();
             messageHandler.handleFailure(record, e);
-            log.error("메시지 처리 중 예외: recordId={}", record.getId(), e);
+//            log.error("메시지 처리 중 예외: recordId={}", record.getId(), e);
         }
     }
 

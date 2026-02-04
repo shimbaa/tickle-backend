@@ -53,7 +53,7 @@ public class RedisConfig {
 
         SingleServerConfig s = config.useSingleServer()
                 .setAddress(REDISSON_HOST_PREFIX + host + ":" + port)
-                .setPassword(password)
+//                .setPassword(password)
                 .setConnectionMinimumIdleSize(8)
                 .setConnectionPoolSize(32)
                 .setSubscriptionConnectionMinimumIdleSize(2)
