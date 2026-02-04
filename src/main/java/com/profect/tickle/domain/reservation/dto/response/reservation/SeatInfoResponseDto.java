@@ -4,10 +4,12 @@ import com.profect.tickle.domain.reservation.entity.SeatGrade;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class SeatInfoResponseDto {
     private Long seatId;
     private String seatNumber;        // 좌석 번호 (A1, B2 등)
