@@ -53,7 +53,7 @@ public class SecurityConfig {
     @Profile("prod")
     public CorsConfigurationSource prodCorsConfigurationSource() {
         CorsConfiguration cfg = new CorsConfiguration();
-        cfg.setAllowedOrigins(Arrays.asList("https://tickle.kr", "https://www.tickle.kr"));
+        cfg.setAllowedOrigins(Arrays.asList("https://tickle.kr", "https://www.tickle.kr", "http://localhost:5173"));
         cfg.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         cfg.setAllowedHeaders(Arrays.asList("*"));
         cfg.setAllowCredentials(true);
