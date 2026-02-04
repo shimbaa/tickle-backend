@@ -75,7 +75,7 @@ public class Performance {
     @Column(name = "performance_deleted_at")
     private Instant deletedAt;
 
-    public Performance(
+    private Performance(
             String title,
             Member member,
             Genre genre,
