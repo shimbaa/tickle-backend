@@ -6,6 +6,7 @@ import com.profect.tickle.global.exception.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Profile;
 import org.springframework.data.redis.core.StreamOperations;
 import org.springframework.stereotype.Component;
 
@@ -14,6 +15,7 @@ import java.util.Map;
 @Component
 @RequiredArgsConstructor
 @Slf4j
+@Profile("redis")
 public class RedisNotificationProducer implements MessageProducer {
 
     private final StreamOperations<String, String, Object> streamOperations;

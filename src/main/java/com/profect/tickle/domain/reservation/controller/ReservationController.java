@@ -6,9 +6,9 @@ import com.profect.tickle.domain.reservation.dto.response.reservation.HallTypeAn
 import com.profect.tickle.domain.reservation.dto.response.reservation.ReservationCompletionResponseDto;
 import com.profect.tickle.domain.reservation.dto.response.reservation.ReservationInfoResponseDto;
 import com.profect.tickle.domain.reservation.dto.response.preemption.SeatPreemptionResponseDto;
-import com.profect.tickle.domain.reservation.service.CachedSeatPreemptionService;
 import com.profect.tickle.domain.reservation.service.ReservationInfoService;
 import com.profect.tickle.domain.reservation.service.ReservationService;
+import com.profect.tickle.domain.reservation.service.SeatPreemptionService;
 import com.profect.tickle.domain.reservation.service.SeatService;
 import com.profect.tickle.global.response.ResultCode;
 import com.profect.tickle.global.response.ResultResponse;
@@ -34,7 +34,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class ReservationController {
 
     private final SeatService seatService;
-    private final CachedSeatPreemptionService cachedSeatPreemptionService;
+    private final SeatPreemptionService seatPreemptionService;
     private final ReservationInfoService reservationInfoService;
     private final ReservationService reservationService;
 
@@ -55,7 +55,7 @@ public class ReservationController {
             @RequestBody @Valid SeatPreemptionRequestDto request) {
 
         Long memberId = SecurityUtil.getSignInMemberId();
-        SeatPreemptionResponseDto response = cachedSeatPreemptionService.preemptSeats(request, memberId);
+        SeatPreemptionResponseDto response = seatPreemptionService.preemptSeats(request, memberId);
 
         ResultCode resultCode = response.isSuccess()
                 ? ResultCode.RESERVATION_SEAT_PREEMPTION_SUCCESS

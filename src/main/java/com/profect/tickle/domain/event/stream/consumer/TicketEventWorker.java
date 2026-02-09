@@ -14,6 +14,7 @@ import org.redisson.api.StreamMessageId;
 import org.redisson.api.stream.StreamReadGroupArgs;
 import org.redisson.client.codec.StringCodec;
 import org.springframework.boot.context.event.ApplicationStartedEvent;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
@@ -29,6 +30,7 @@ import static com.profect.tickle.domain.point.entity.PointTarget.EVENT;
 @Slf4j
 @Component
 @RequiredArgsConstructor
+@Profile("redis")
 public class TicketEventWorker {
 
     // ====== 튜닝 파라미터 ======

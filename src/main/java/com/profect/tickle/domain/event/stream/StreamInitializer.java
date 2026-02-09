@@ -9,12 +9,14 @@ import org.redisson.api.StreamMessageId;
 import org.redisson.api.stream.StreamAddArgs;
 import org.redisson.client.codec.StringCodec;
 import org.redisson.codec.TypedJsonJacksonCodec;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.Map;
 
 @Component
 @RequiredArgsConstructor
+@Profile("redis")
 public class StreamInitializer {
 
     public static final String STREAM_KEY = "stream:ticket-events";
